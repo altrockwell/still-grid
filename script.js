@@ -39,18 +39,15 @@ function setAttributes(element, attributes) {
 
 function imageLoaded() {
 	imagesLoaded++;
-	console.log(imagesLoaded);
 	if (imagesLoaded == totalImages) {
 		ready = true;
 		loader.hidden = true;
-		console.log('ready= ', ready);
 	}
 }
 
 function displayPhotos() {
 	imagesLoaded = 0;
 	totalImages = photosArray.length;
-	console.log('total images: ', totalImages);
 	// map photosArray
 	photosArray.forEach((photo) => {
 		// create <a> element
@@ -75,14 +72,12 @@ function displayPhotos() {
 				'no description available',
 		});
 		img.addEventListener('load', imageLoaded);
-		// console.log(photo.id);
 
 		img.classList.add('photo');
 		// Put <img> inside <a>
 		item.appendChild(img);
 		imageContainer.appendChild(item);
 	});
-	// console.log(photosArray[photosArray.length - 1].id);
 	// const lastPhoto = document.getElementById(
 	// 	photosArray[photosArray.length - 1].id
 	// );
@@ -92,12 +87,9 @@ function displayPhotos() {
 async function getPhotos() {
 	try {
 		const response = await fetch(apiURL);
-		// console.log(response);
 		photosArray = await response.json();
 		displayPhotos();
-	} catch (error) {
-		console.log(error);
-	}
+	} catch (error) {}
 }
 
 window.addEventListener('scroll', () => {
