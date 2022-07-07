@@ -27,9 +27,9 @@ let photosArray = [];
 
 // Unsplash API
 let count = 5;
-const apiKey = 'Zz4qnWpKFbUpZtl28TE7eFL-shtSs2V3vwr7BFWsXm0';
+let apiKey = 'Zz4qnWpKFbUpZtl28TE7eFL-shtSs2V3vwr7BFWsXm0';
 const redirectURL = 'urn:ietf:wg:oauth:2.0:oob';
-const apiURL = `https://api.unsplash.com/photos/random/?client_id=${apiKey}&count=${count}`;
+let apiURL = `https://api.unsplash.com/photos/random/?client_id=${apiKey}&count=${count}`;
 
 function setAttributes(element, attributes) {
 	for (const key in attributes) {
@@ -57,8 +57,12 @@ function displayPhotos() {
 			href: photo.links.html,
 			target: '_blank',
 		});
+		item.classList.add('photo');
+
+		console.log(photo);
 
 		// create image element
+
 		const img = document.createElement('img');
 		setAttributes(img, {
 			id: photo.id,
@@ -74,9 +78,15 @@ function displayPhotos() {
 		});
 		img.addEventListener('load', imageLoaded);
 
-		img.classList.add('photo');
+		const caption = document.createElement('div');
+		caption.classList.add('caption');
+		caption.innerHTML += `Photo by <a href="${photo.user.links.html}?utm_source=still-grid2&utm_medium=referral">${photo.user.first_name} ${photo.user.last_name}</a> on <a href="https://unsplash.com/?utm_source=your_app_name&utm_medium=referral">Unsplash</a>`;
+
+		// img.classList.add('photo');
 		// Put <img> inside <a>
 		item.appendChild(img);
+		item.appendChild(caption);
+
 		imageContainer.appendChild(item);
 	});
 	// const lastPhoto = document.getElementById(
@@ -90,7 +100,13 @@ async function getPhotos() {
 		const response = await fetch(apiURL);
 		photosArray = await response.json();
 		displayPhotos();
-	} catch (error) {}
+	} catch (error) {
+		const newApikey = 'VlO2sDcskS9ThUAMxmvRib3R8Li7bGv4fQbZrxOzdkw';
+		if (apiKey !== newApikey) {
+			apiKey = newApikey;
+			getPhotos();
+		}
+	}
 }
 
 window.addEventListener('scroll', () => {
