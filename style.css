@@ -49,25 +49,34 @@ h1 {
 	/* background-color: dodgerblue; */
 }
 
+/* .photo-container {
+	width: 100%;
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+	grid-template-rows: masonry;
+	gap: 10px;
+} */
+
 .photo-container {
 	min-width: 100%;
-	columns: 3;
-	column-gap: 15px;
+	column-count: 3;
+	column-gap: 10px;
 }
 
 @media screen and (max-device-width: 768px) {
 	.photo-container {
-		columns: 2;
+		column-count: 2;
 	}
 }
 @media screen and (max-device-width: 400px) {
 	.photo-container {
-		columns: 1;
+		column-count: 1;
 	}
 }
 
 .photo {
 	width: 100%;
+	display: inline-block;
 	border-radius: 10px;
 	margin-bottom: 15px;
 	/* height: 300px; */
